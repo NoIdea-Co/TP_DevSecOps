@@ -27,7 +27,7 @@ body {
 .centered { min-height: calc(100vh - 56px); display: flex; align-items: center; justify-content: center; }
 .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(18px, 3vw, 28px); width: 100%; }
 .title { margin: 0 0 6px 0; font-size: clamp(22px, 2.4vw, 28px); }
-.subtitle, .hint { margin: 0 0 18px 0; color: var(--muted); font-size: 0.95rem; }
+.subtitle, .hint { margin: 18px 0 18px 0; color: var(--muted); font-size: 0.95rem; }
 /* Espace entre les boutons et l'indice quand ils sont adjacents */
 .actions + .hint { margin-top: 12px; }
 .form { display: grid; gap: var(--gap); }
