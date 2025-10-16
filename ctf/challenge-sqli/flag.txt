@@ -1,0 +1,1 @@
+CTF{SQLI_simple_2025}

@@ -1,0 +1,22 @@
+version: '3'
+services:
+  sqli:
+    build: ./challenge-sqli
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./challenge-sqli/flag.txt:/app/flag.txt:ro
+
+  upload:
+    build: ./challenge-upload
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./challenge-upload/flag.txt:/app/flag.txt:ro
+
+  cmd:
+    build: ./challenge-cmd
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./challenge-cmd/flag.txt:/app/flag.txt:ro
