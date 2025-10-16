@@ -1,1 +1,1 @@
-CTF{SQLI_simple_2025}
+CTF{SQLI_1s_s0_simpl3}
