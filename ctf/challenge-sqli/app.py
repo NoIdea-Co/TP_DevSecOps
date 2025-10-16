@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template_string, send_from_directory
 import sqlite3
 
 app = Flask(__name__)
@@ -16,14 +16,17 @@ def init_db():
 
 @app.route('/')
 def index():
-    return '''
-    <h2>Login</h2>
-    <form method="GET" action="/login">
-      Username: <input name="username"><br>
-      Password: <input name="password"><br>
-      <input type="submit" value="Login">
-    </form>
-    '''
+    return send_from_directory('.', 'app.html')
+
+
+@app.route('/app.css')
+def app_css():
+    return send_from_directory('.', 'app.css')
+
+
+@app.route('/app.js')
+def app_js():
+    return send_from_directory('.', 'app.js')
 
 @app.route('/login')
 def login():

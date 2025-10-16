@@ -1,17 +1,21 @@
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 import subprocess
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return '''
-    <h2>Ping tool</h2>
-    <form action="/ping" method="GET">
-      Host: <input name="host" value="127.0.0.1">
-      <input type="submit" value="Ping">
-    </form>
-    '''
+    return send_from_directory('.', 'app.html')
+
+
+@app.route('/app.css')
+def app_css():
+    return send_from_directory('.', 'app.css')
+
+
+@app.route('/app.js')
+def app_js():
+    return send_from_directory('.', 'app.js')
 
 @app.route('/ping')
 def ping():

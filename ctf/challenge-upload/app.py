@@ -10,13 +10,17 @@ ALLOWED_EXT = {'png','jpg','jpeg','txt'}
 
 @app.route('/')
 def index():
-    return '''
-    <h2>Upload</h2>
-    <form method="POST" enctype="multipart/form-data" action="/upload">
-      File: <input type="file" name="file"><br>
-      <input type="submit" value="Upload">
-    </form>
-    '''
+    return send_from_directory('.', 'app.html')
+
+
+@app.route('/app.css')
+def app_css():
+    return send_from_directory('.', 'app.css')
+
+
+@app.route('/app.js')
+def app_js():
+    return send_from_directory('.', 'app.js')
 
 def allowed(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXT
