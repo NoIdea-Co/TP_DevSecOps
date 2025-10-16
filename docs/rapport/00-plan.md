@@ -2,8 +2,8 @@
 
 
 ## Rôles
-- Lead DevSec : @handle1
-- Lead SecOps/Formation : @handle2
+- Lead DevSec : @Cronix2
+- Lead SecOps/Formation : @Madajel
 
 
 ## Rituels
