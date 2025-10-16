@@ -28,3 +28,9 @@ jobs:
       run: |
         echo "Pipeline OK"
         python -c "import flask; print('Flask import OK')"
+
+    - name: Run tests
+      run: |
+        pip install pytest
+        pytest -q
+
