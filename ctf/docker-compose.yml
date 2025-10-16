@@ -1,5 +1,14 @@
-version: '3'
+version: '3.7'
 services:
+  ctfd:
+    image: ctfd/ctfd:latest
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:////data/ctfd.db
+    volumes:
+      - ../ctfd/ctfd-data:/data
   sqli:
     build: ./challenge-sqli
     ports:

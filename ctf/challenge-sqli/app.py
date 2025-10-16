@@ -57,17 +57,50 @@ def login():
     pwd = request.args.get('password','')
     conn = sqlite3.connect(DB)
     c = conn.cursor()
-    # VULN: concatenation SQL non parameterisée
-    query = f"SELECT username FROM users WHERE username = '{uname}' AND password = '{pwd}';"
     try:
-        c.execute(query)
-        row = c.fetchone()
-        if row:
-            content = f"<p class=\"subtitle\">Bienvenue, <strong>{row[0]}</strong> !</p><p class=\"hint\">Astuce : essayez aussi de contourner l’authentification.</p>"
-            return render_page("Connexion réussie", content)
+        if uname and not pwd:
+            # Étape 1: si seul le username est fourni, on fait une recherche vulnérable (LIKE) pour énumérer
+            # VULN: concaténation non paramétrée sur LIKE
+            query_enum = f"SELECT username FROM users WHERE username LIKE '%{uname}%';"
+            c.execute(query_enum)
+            rows = c.fetchall()
+            if rows:
+                items = ''.join(f"<li><code>{u[0]}</code></li>" for u in rows)
+                content = f"<p>Utilisateurs trouvés :</p><ul>{items}</ul>"
+            else:
+                content = "<p>Aucun utilisateur correspondant.</p>"
+            hint = "<p class=\"hint\">Indice : utilisez ces informations pour la suite.</p>"
+            return render_page("Énumération d’utilisateurs", content + hint, subtitle=f"Motif : {uname}")
         else:
-            content = "<p>Identifiants invalides. Réessayez…</p>"
-            return render_page("Échec de connexion", content)
+            # Étape 2: username paramétré, mot de passe injectable
+            # Important: on encadre la condition du mot de passe pour éviter que OR '1'='1' n'échappe au filtre username
+            query = "SELECT username FROM users WHERE username = ? AND (password = '" + pwd + "');"
+            c.execute(query, (uname,))
+            row = c.fetchone()
+            if row:
+                username = str(row[0])
+                if username.lower() == 'bob':
+                    # Cas Bob: page similaire mais sans flag, on donne un indice supplémentaire
+                    content = (
+                        f"<p class=\"subtitle\">Bienvenue, <strong>{username}</strong> !</p>"
+                        f"<p class=\"hint\">Indice : ce compte ne dispose pas des droits nécessaires. Vérifiez peut‑être un autre utilisateur…</p>"
+                    )
+                    return render_page("Connexion réussie", content)
+                else:
+                    # Cas standard (ex: alice): on affiche le flag
+                    try:
+                        flag = open('flag.txt').read().strip()
+                    except Exception:
+                        flag = '(flag indisponible)'
+                    content = (
+                        f"<p class=\"subtitle\">Bienvenue, <strong>{username}</strong> !</p>"
+                        f"<p><strong>Flag :</strong> <code>{flag}</code></p>"
+                        f"<p class=\"hint\">Astuce : essayez aussi de contourner l’authentification.</p>"
+                    )
+                    return render_page("Connexion réussie", content)
+            else:
+                content = "<p>Identifiants invalides. Réessayez…</p>"
+                return render_page("Échec de connexion", content)
     except Exception as e:
         content = f"<p class=\"hint\">Erreur SQL :</p><pre>{e}</pre>"
         return render_page("Erreur", content)

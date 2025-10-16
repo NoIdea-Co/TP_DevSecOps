@@ -19,15 +19,15 @@
             <div class="container">
                 <section class="card">
                     <h1 class="title">Injection SQL — Connexion</h1>
-                    <p class="subtitle">Entrez des identifiants ou testez une injection pour contourner l’authentification.</p>
+                    <p class="subtitle">Formulaire basique pour s’authentifier.</p>
                     <form class="form" method="GET" action="/login">
                         <div class="form-row">
                             <label for="username">Nom d’utilisateur</label>
-                            <input id="username" name="username" placeholder="alice" />
+                            <input id="username" name="username" placeholder="username" />
                         </div>
                         <div class="form-row">
                             <label for="password">Mot de passe</label>
-                            <input id="password" name="password" type="text" placeholder="alicepass" />
+                            <input id="password" name="password" type="text" placeholder="password" />
                         </div>
                         <div class="actions">
                             <button class="btn btn-primary" type="submit">Se connecter</button>
@@ -35,7 +35,7 @@
                         </div>
                     </form>
 
-                    <p class="hint">Indice : la requête côté serveur n’est pas paramétrée (SQLi classique).</p>
+                    <p class="hint">Indice : pensez aux injections SQL pour mener votre enquête.</p>
                 </section>
             </div>
         </main>
