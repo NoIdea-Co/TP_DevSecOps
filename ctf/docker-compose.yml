@@ -15,6 +15,7 @@ services:
       - "5000:5000"
     volumes:
       - ./challenge-sqli/flag.txt:/app/flag.txt:ro
+      - ../img:/app/img:ro
 
   upload:
     build: ./challenge-upload
@@ -22,6 +23,7 @@ services:
       - "5001:5001"
     volumes:
       - ./challenge-upload/flag.txt:/app/flag.txt:ro
+      - ../img:/app/img:ro
 
   cmd:
     build: ./challenge-cmd
@@ -29,3 +31,4 @@ services:
       - "5002:5002"
     volumes:
       - ./challenge-cmd/flag.txt:/app/flag.txt:ro
+      - ../img:/app/img:ro

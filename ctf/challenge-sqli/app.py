@@ -10,6 +10,10 @@ def render_page(title: str, inner_html: str, subtitle: str | None = None) -> str
             <head>
                 <meta charset=\"UTF-8\" />
                 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
+                <link rel=\"icon\" type=\"image/png\" href=\"/favicon.ico?v=1\" />
+                <link rel=\"shortcut icon\" type=\"image/png\" href=\"/favicon.ico?v=1\" />
+                <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.png?v=1\" />
+                <link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png?v=1\" />
                 <link rel=\"stylesheet\" href=\"/style.css\" />
                 <title>{title}</title>
                 <script defer src=\"/app.js\"></script>
@@ -50,6 +54,18 @@ def app_js():
 @app.route('/style.css')
 def style_css():
     return send_from_directory('.', 'style.css')
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory('img', 'icon.png')
+
+@app.route('/favicon.png')
+def favicon_png():
+    return send_from_directory('img', 'icon.png')
+
+@app.route('/apple-touch-icon.png')
+def apple_touch_icon():
+    return send_from_directory('img', 'icon.png')
 
 @app.route('/login')
 def login():
