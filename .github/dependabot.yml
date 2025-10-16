@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "pip"
-    directory: "/"        # emplacement du requirements.txt
+    directory: "../app"        # emplacement du requirements.txt
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
