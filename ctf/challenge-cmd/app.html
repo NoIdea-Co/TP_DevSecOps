@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="app.css">
-    <title>Challenge CMD</title>
-</head>
-<body>
-    <h1>Challenge CMD</h1>
-    <p>Page statique pour le défi CMD.</p>
-    <script src="app.js"></script>
-</body>
-</html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Feuille de style centralisée (thème sombre) -->
+        <link rel="stylesheet" href="style.css" />
+        <title>CTF — Injection de commandes</title>
+        <script defer src="app.js"></script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container">
+                <div class="brand">CTF — Sécurité Web</div>
+            </div>
+        </header>
+
+        <main class="centered">
+            <div class="container">
+                <section class="card">
+                    <h1 class="title">Injection de commandes — Ping</h1>
+                    <p class="subtitle">Saisissez une adresse IP ou un nom d’hôte à tester.</p>
+
+                    <form class="form" action="/ping" method="GET">
+                        <div class="form-row">
+                            <label for="host">Hôte</label>
+                            <input id="host" name="host" value="127.0.0.1" required placeholder="ex: 127.0.0.1" />
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary" type="submit">Tester</button>
+                            <a class="btn btn-secondary" href="/">Réinitialiser</a>
+                        </div>
+                    </form>
+
+                    <p class="hint">Indice : cette fonctionnalité est vulnérable à l’injection de commandes.</p>
+                </section>
+            </div>
+        </main>
+    </body>
+    </html>

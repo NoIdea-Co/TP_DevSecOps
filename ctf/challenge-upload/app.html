@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="app.css">
-    <title>Challenge Upload</title>
-</head>
-<body>
-    <h1>Challenge Upload</h1>
-    <p>Page statique pour le défi d'upload de fichiers.</p>
-    <script src="app.js"></script>
-</body>
-</html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Feuille de style centralisée (thème sombre) -->
+        <link rel="stylesheet" href="style.css" />
+        <title>CTF — Téléversement de fichiers</title>
+        <script defer src="app.js"></script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container">
+                <div class="brand">CTF — Sécurité Web</div>
+            </div>
+        </header>
+
+        <main class="centered">
+            <div class="container">
+                <section class="card">
+                    <h1 class="title">Téléversement de fichiers</h1>
+                    <p class="subtitle">Envoyez un fichier autorisé, puis accédez-y depuis l’URL fournie.</p>
+                    <form class="form" method="POST" enctype="multipart/form-data" action="/upload">
+                        <div class="form-row">
+                            <label for="file">Fichier</label>
+                            <input id="file" type="file" name="file" />
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary" type="submit">Envoyer</button>
+                            <a class="btn btn-secondary" href="/">Réinitialiser</a>
+                        </div>
+                    </form>
+                    <p class="hint">Indice : certaines extensions sont servies telles quelles — attention à l’exposition.</p>
+                </section>
+            </div>
+        </main>
+    </body>
+    </html>

@@ -1,14 +1,43 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="app.css">
-    <title>Challenge SQLi</title>
-</head>
-<body>
-    <h1>Challenge SQLi</h1>
-    <p>Page statique pour le défi d'injection SQL.</p>
-    <script src="app.js"></script>
-</body>
-</html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Feuille de style centralisée (thème sombre) -->
+        <link rel="stylesheet" href="style.css" />
+        <title>CTF — Injection SQL</title>
+        <script defer src="app.js"></script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container">
+                <div class="brand">CTF — Sécurité Web</div>
+            </div>
+        </header>
+
+        <main class="centered">
+            <div class="container">
+                <section class="card">
+                    <h1 class="title">Injection SQL — Connexion</h1>
+                    <p class="subtitle">Entrez des identifiants ou testez une injection pour contourner l’authentification.</p>
+                    <form class="form" method="GET" action="/login">
+                        <div class="form-row">
+                            <label for="username">Nom d’utilisateur</label>
+                            <input id="username" name="username" placeholder="alice" />
+                        </div>
+                        <div class="form-row">
+                            <label for="password">Mot de passe</label>
+                            <input id="password" name="password" type="text" placeholder="alicepass" />
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary" type="submit">Se connecter</button>
+                            <a class="btn btn-secondary" href="/">Réinitialiser</a>
+                        </div>
+                    </form>
+
+                    <p class="hint">Indice : la requête côté serveur n’est pas paramétrée (SQLi classique).</p>
+                </section>
+            </div>
+        </main>
+    </body>
+    </html>

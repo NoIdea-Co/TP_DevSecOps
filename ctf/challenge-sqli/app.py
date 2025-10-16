@@ -2,6 +2,29 @@ from flask import Flask, request, render_template_string, send_from_directory
 import sqlite3
 
 app = Flask(__name__)
+def render_page(title: str, inner_html: str, subtitle: str | None = None) -> str:
+        sub = f'<p class="subtitle">{subtitle}</p>' if subtitle else ''
+        return f"""
+        <!DOCTYPE html>
+        <html lang=\"fr\">
+            <head>
+                <meta charset=\"UTF-8\" />
+                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
+                <link rel=\"stylesheet\" href=\"/style.css\" />
+                <title>{title}</title>
+                <script defer src=\"/app.js\"></script>
+            </head>
+            <body>
+                <header class=\"site-header\"><div class=\"container\"><div class=\"brand\">CTF — Sécurité Web</div></div></header>
+                <main class=\"centered\"><div class=\"container\"><section class=\"card\">
+                    <h1 class=\"title\">{title}</h1>
+                    {sub}
+                    {inner_html}
+                    <div class=\"actions\" style=\"margin-top:14px\"><a class=\"btn btn-secondary\" href=\"/\">Retour</a></div>
+                </section></div></main>
+            </body>
+        </html>
+        """
 
 DB = 'sqli.db'
 
@@ -19,14 +42,14 @@ def index():
     return send_from_directory('.', 'app.html')
 
 
-@app.route('/app.css')
-def app_css():
-    return send_from_directory('.', 'app.css')
-
-
 @app.route('/app.js')
 def app_js():
     return send_from_directory('.', 'app.js')
+
+
+@app.route('/style.css')
+def style_css():
+    return send_from_directory('.', 'style.css')
 
 @app.route('/login')
 def login():
@@ -40,11 +63,14 @@ def login():
         c.execute(query)
         row = c.fetchone()
         if row:
-            return f"Welcome, {row[0]}!"
+            content = f"<p class=\"subtitle\">Bienvenue, <strong>{row[0]}</strong> !</p><p class=\"hint\">Astuce : essayez aussi de contourner l’authentification.</p>"
+            return render_page("Connexion réussie", content)
         else:
-            return "Invalid credentials"
+            content = "<p>Identifiants invalides. Réessayez…</p>"
+            return render_page("Échec de connexion", content)
     except Exception as e:
-        return f"Error: {e}"
+        content = f"<p class=\"hint\">Erreur SQL :</p><pre>{e}</pre>"
+        return render_page("Erreur", content)
     finally:
         conn.close()
 
